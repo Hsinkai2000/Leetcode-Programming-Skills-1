@@ -3,6 +3,49 @@
   "configurations": [
     
     {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Cargo test",
+      "cargo": {
+        "args": [
+          "test",
+          "--no-run",
+          "--lib"
+        ]
+      },
+      "program": "${cargo:program}",
+      "args": []
+    },
+    
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Cargo launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--lib"
+        ]
+      },
+      "program": "${cargo:program}",
+      "args": []
+    },
+
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Cargo launch",
+      "cargo": {
+        "args": [
+          "build",
+          "--lib"
+        ]
+      },
+      "program": "${cargo:program}",
+      "args": []
+    },
+    
+    {
       "name": "(gdb) Attach",
       "type": "cppdbg",
       "request": "attach",

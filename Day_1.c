@@ -39,7 +39,8 @@ double average(int* salary, int salarySize){
 
 int main()  
 {  
+    int salary[] = {4000,3000,2000,1000};
     printf("Number of odd numbers inbetween: %d\n",countOdds(3, 7));
-    // printf("Average salary excluding min and max: %d",average([4000,3000,2000,1000], 4));
+    printf("Average salary excluding min and max: %d",average(salary, 4));
    
 }  
