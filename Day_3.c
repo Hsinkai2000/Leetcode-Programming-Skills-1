@@ -39,11 +39,11 @@ int largestPerimeter(int* nums, int numsSize){
 
 int nearestValidPoint(int x, int y, int** points, int pointsSize, int* pointsColSize){
     int index=-1;        
-    int shortestdist=INT_MAX;
+    int shortestdist=INT_MAX;//set shortest dist as max integer
     for(int i=0;i<pointsSize;i++){
-        if(x==points[i][0] || y==points[i][1]){                
-            int dist=abs(x-points[i][0])+abs(y-points[i][1]);                
-            if(dist<shortestdist ){
+        if(x==points[i][0] || y==points[i][1]){            //check if point is valid    
+            int dist=abs(x-points[i][0])+abs(y-points[i][1]);        //if valid, calculate distance        
+            if(dist<shortestdist ){  //check if distance shorter than shortest dist. wont be true if repeated dist
                 index=i;                                  
                 shortestdist=dist;                    
             }                
