@@ -155,7 +155,6 @@ int sumSquares(int n){
     else{
         while (n>0)
         {
-            printf("entered here");
             //find digit i
             digit = n%10;
             //add squared of digit i
