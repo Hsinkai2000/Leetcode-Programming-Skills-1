@@ -5,19 +5,17 @@ int a[maxV][maxV]; /* Declare a two dimensional array */
 int visited[maxV];
 int sequence[maxV];
 int parent[maxV];
+int start;
 int count = 0, componentcount = 0; /* Declare and initialize variable */
 
 void read_graph(void); /* Function prototype */
 void print_graph(void);
 void dfs(int);
-void backEdge();
-void isConnected();
 
-void main() /* Main program. */
+int main() /* Main program. */
 {
     read_graph();  /* call function to input graph adjacency matrix */
     print_graph(); /* call function to output graph adjacency matrix */
-    
 }
 
 void read_graph(void) /* Function to read graph adjacency matrix */
@@ -29,6 +27,8 @@ void read_graph(void) /* Function to read graph adjacency matrix */
         printf("Exceed the maximum number of vertices permitted");
     else
     {
+        printf("\nEnter starting vertex");
+        scanf("%d",&start);
         for (x = 1; x <= V; x++)
             //set all nodes as not visited and no parent nodes
             visited[x] = 0;
@@ -44,8 +44,11 @@ void read_graph(void) /* Function to read graph adjacency matrix */
                 a[y][x] = edge;
             }
 
-        //loops through all vetices
-        for (int i = 1; i <= V; i++)
+        componentcount++;   
+        printf("\nVisiting sequence of component no.%d : ",componentcount);
+        dfs(start);  
+        //loops through rest of vetices
+        for (int i = V; i >=1; i--)
         {
             //if not any is unvisited, start DFS for that node. in 1st count of dfs,
             //it will conduct search for  all nodes (if connected), after returning here and going to next
@@ -54,14 +57,12 @@ void read_graph(void) /* Function to read graph adjacency matrix */
             {                
                 componentcount++;   
                 printf("\nVisiting sequence of component no.%d : ",componentcount);
-                dfs(i);
-                backEdge();                
-                isConnected();              
+                dfs(i);           
             }
         }
         printf("\nTotal Components of graph: %d", componentcount);
         printf("\nVisiting sequence of graph: ");
-        for (int i = 0; i <=V; i++)
+        for (int i = 0; i <V; i++)
         {
             printf("%d ",sequence[i]);
         }
@@ -86,7 +87,7 @@ void print_graph(void) /* Function to print graph adjacency matrix */
         for (y = 1; y <= V; y++)
         {
 
-            printf(" a[ %d ][ %d ]= %d", x, y, a[x][y]);
+            printf("%d ", a[x][y]);
             if (y == V)
             {
                 printf("\n");
@@ -100,9 +101,9 @@ void dfs(int x)
     sequence[count] = x;
     visited[x] = 1;
     count++;
-    printf("%d ", x);
-    for (int b = 1; b <=V; b++)
+    for (int b = V; b >=1; b--)
     {
+        
         //check if edge is valid and not visited
         if (!visited[b]&&a[x][b] ==1)
         {
@@ -110,32 +111,21 @@ void dfs(int x)
             parent[b] = x;
             //continue the search with each valid unvisited node
             dfs(b);
+            printf("\n(%d,%d) tree edge", x,b);
+            
         }
+        
         
     }
     
-}
-
-void backEdge(){
-    int i, j;
-    //start sequence cannot have parent of last of sequence    
-    for(i=2;i<=V;i++){
-        for(j=0;j<=i-2;j++)
-            if(a[sequence[i]][sequence[j]]==1){
-                printf("\nBack Edge: %d %d", sequence[i], sequence[j] );
+    for (int b = 1; b <=V; b++)
+        {
+            if (a[x][b] == 1 && parent[b] != x && parent[x] != b)
+            {
+                printf("\n(%d,%d) back edge ", x,b);
+                printf("\nIt has a backedge, hence, it contains a cycle");
             }
-
-    }
-}
-
-void isConnected(){
-    int i,j;
-
-     for(i=2;i<=count;i++){
-        for(j=0;j<=i-2;j++)
-            if(a[sequence[i]][sequence[j]]==1){
-                printf("\nThere is a cycle.");
-            }
-    }
-
+            
+        }
+    
 }
