@@ -1,3 +1,2 @@
-ublic int pivotIndex(int[] nums) {
-        
-    // }
+;
+                    // System.out.println("testing: "+ queue.pol
